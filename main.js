@@ -45,6 +45,10 @@ function renderRecommendations(recommendations) {
     const itemEl = document.createElement("div");
     itemEl.classList.add("food-item");
     itemEl.textContent = food;
+    
+    // Add click event for image modal
+    itemEl.addEventListener("click", () => openModal(food));
+    
     resultsContainer.appendChild(itemEl);
   });
 }
@@ -85,3 +89,51 @@ function toggleTheme() {
 if (themeToggleBtn) {
   themeToggleBtn.addEventListener("click", toggleTheme);
 }
+
+/* Modal and Image Logic */
+const modal = document.getElementById("image-modal");
+const closeModalBtn = document.getElementById("close-modal-btn");
+const modalTitle = document.getElementById("modal-title");
+const foodImage = document.getElementById("food-image");
+const imageLoader = document.getElementById("image-loader");
+
+function openModal(foodName) {
+  modalTitle.textContent = foodName;
+  modal.classList.remove("hidden");
+  
+  // Reset image and show loader
+  foodImage.classList.add("hidden");
+  foodImage.src = "";
+  imageLoader.style.display = "block";
+  
+  // Fetch image from Pollinations.ai (using keyword + food for better context)
+  const query = encodeURIComponent(`${foodName} korean food delicious`);
+  const imageUrl = `https://image.pollinations.ai/prompt/${query}?width=400&height=400&nologo=true`;
+  
+  foodImage.onload = () => {
+    imageLoader.style.display = "none";
+    foodImage.classList.remove("hidden");
+  };
+  
+  foodImage.onerror = () => {
+    imageLoader.textContent = "이미지를 불러올 수 없습니다.";
+  };
+  
+  foodImage.src = imageUrl;
+}
+
+function closeModal() {
+  modal.classList.add("hidden");
+}
+
+if (closeModalBtn) {
+  closeModalBtn.addEventListener("click", closeModal);
+}
+
+// Close modal when clicking outside the content
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+

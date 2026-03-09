@@ -35,6 +35,20 @@
     </section>
   </main>
 
+  <!-- Image Modal -->
+  <div id="image-modal" class="modal hidden">
+    <div class="modal-content">
+      <button id="close-modal-btn" class="close-btn" aria-label="닫기">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      <h2 id="modal-title" class="modal-title">메뉴 이름</h2>
+      <div class="image-container">
+        <div id="image-loader" class="loader">로딩 중...</div>
+        <img id="food-image" src="" alt="음식 사진" class="hidden" />
+      </div>
+    </div>
+  </div>
+
   <script defer src="main.js"></script>
 </body>
 </html>
