@@ -98,12 +98,19 @@ const foodImage = document.getElementById("food-image");
 const imageLoader = document.getElementById("image-loader");
 
 function openModal(foodName) {
+  if (!modal || !modalTitle || !foodImage || !imageLoader) {
+    console.error("Modal elements are missing. DOM might not be fully loaded or cached.");
+    return;
+  }
+  
+  console.log("Opening modal for:", foodName);
   modalTitle.textContent = foodName;
   modal.classList.remove("hidden");
   
   // Reset image and show loader
   foodImage.classList.add("hidden");
   foodImage.src = "";
+  imageLoader.textContent = "로딩 중...";
   imageLoader.style.display = "block";
   
   // Fetch image from Pollinations.ai (using keyword + food for better context)
@@ -111,11 +118,13 @@ function openModal(foodName) {
   const imageUrl = `https://image.pollinations.ai/prompt/${query}?width=400&height=400&nologo=true`;
   
   foodImage.onload = () => {
+    console.log("Image loaded successfully.");
     imageLoader.style.display = "none";
     foodImage.classList.remove("hidden");
   };
   
   foodImage.onerror = () => {
+    console.error("Failed to load image.");
     imageLoader.textContent = "이미지를 불러올 수 없습니다.";
   };
   
@@ -131,9 +140,11 @@ if (closeModalBtn) {
 }
 
 // Close modal when clicking outside the content
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    closeModal();
-  }
-});
+if (modal) {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+}
 
