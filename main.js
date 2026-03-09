@@ -63,3 +63,25 @@ if (recommendBtn) {
 } else {
   console.error("Recommendation button not found in the DOM.");
 }
+
+/* Dark/Light Mode Theme Toggle */
+const themeToggleBtn = document.getElementById("theme-toggle-btn");
+
+// Check local storage or system preference on load
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.documentElement.setAttribute("data-theme", savedTheme);
+} else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.documentElement.setAttribute("data-theme", "dark");
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+  const newTheme = currentTheme === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
+}
+
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", toggleTheme);
+}

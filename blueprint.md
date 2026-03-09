@@ -6,6 +6,7 @@ A simple, modern web application that helps users decide what to eat for dinner.
 ## Features
 *   **Menu Recommendation:** Randomly selects 5 distinct food items from a predefined list.
 *   **Modern UI:** A clean, responsive design with elegant typography, soft shadows, and a vibrant color palette, adhering to modern web design principles.
+*   **Dark Mode:** A toggleable dark/light theme that respects system preferences and persists via `localStorage`.
 *   **Interactive Elements:** Button interactions (hover, active states) with smooth transitions.
 *   **Accessibility:** Semantic HTML and appropriate contrast for readability.
 
